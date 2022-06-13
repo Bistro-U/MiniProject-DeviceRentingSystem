@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+    </style>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="navbar-top">
+        <div class="navbar-header">
+            <!-- logo -->
+            <div class="col-sm-3 logo">
+                <a href="#"><img src="./img/logo.png" height="80" alt=""></a>
+            </div>
+            <!-- name web -->
+            <div class="col-sm-6 d-flex align-items-center justify-content-center text-center name-website">
+                <a href="#">DRS - FPT University HCM</a>
+            </div>
+            <!-- welcome -->
+            <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
+                <div class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#"
+                        id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                        <img src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.6435-9/148200636_528659258096027_8966625421411191162_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dzMdGh7CUt4AX978A2p&_nc_ht=scontent.fsgn5-11.fna&oh=00_AT_T8cl7XJeQ7xnVIt7NSbBeFkMmZy_8FtaihBZKvwhxjw&oe=62BB3767"
+                            class="rounded-circle" height="20">
+                        <p class="user-name">Thienpnse150137</p>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li>
+                            <a class="dropdown-item" href="myprofile.html">My profile</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="login.html">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="manage-navbar">
+        <a href="iddevicenamager.html">
+            <button class="btn btn-secondary">
+                Manage Devices
+            </button>
+        </a>
+        <a href="#">
+            <button class="btn btn-primary">
+                Manage Warehouse
+            </button>
+        </a>
+        <a href="insertcatagory.html">
+            <button class="btn btn-secondary">
+                Manage Catagory
+            </button>
+        </a>
+    </div>
+    <div class="row manager-function d-flex align-items-center">
+        <div class="col-sm-6 left-function text-center">
+            <button type="button" class="btn">
+                <i class="fas fa-plus-circle"></i>
+                <label for="">insert new Device</label>
+            </button>
+            <button type="button" class="btn">
+                <label for="">Category</label>
+                <i class="fas fa-arrow-down"></i>
+            </button>
+            <button type="button" class="btn">
+                <label for="">Filter</label>
+            </button>
+        </div>
+        <div class="col-sm-6 right-function">
+            <div class="search">
+                <form action="" id="search-box">
+                    <div class="row search-box-wrapper">
+                        <input type="text" id="search-text" class="col-8" placeholder="Tìm">
+                        <button id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="table-wapper col-sm-12">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>WareHouseID</th>
+                    <th>WareHouse Name</th>
+                    <th>Location</th>
+                    <th>Limit Amount</th>
+                    <th>Status</th>
+                    <th>Delete</th>
+                    <th>Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="text-center" value="01"></td>
+                    <td><input type="text" class="text-center" value="01"></td>
+                    <td><input type="text" class="text-center" value="01"></td>
+                    <td><input type="text" class="text-center" value="01"></td>
+                    <td><input type="text" class="text-center" value="01"></td>
+                    <td><button type="button" class="btn btn-dark">Update</button></td>
+                    <td><button type="button" class="btn btn-dark">Update</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
