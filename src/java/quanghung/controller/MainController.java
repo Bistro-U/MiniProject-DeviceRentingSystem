@@ -17,18 +17,20 @@ public class MainController extends HttpServlet {
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String GET_LIST = "GetList";
     private static final String GET_LIST_CONTROLLER = "GetListController";
-    private static final String GET_LIST_DEVICE = "GetListDevice";
-    private static final String GET_LIST_DEVICE_CONTROLLER = "GetListDeviceController";
+    private static final String GET_LIST_WAREHOUSE = "GetListWarehouse";
+    private static final String GET_LIST_WAREHOUSE_CONTROLLER = "GetListWarehouseController";
     private static final String INPUT_DEVICE_INFORMATION = "InputDeviceInfo";
     private static final String INPUT_DEVICE_INFORMATION_CONTROLLER = "InputDeviceInfoController";
     private static final String CREATE_DEVICE = "CreateDevice";
     private static final String CREATE_DEVICE_CONTROLLER = "CreateDeviceController";
+    private static final String CREATE_WAREHOUSE = "createWarehouse";
+    private static final String CREATE_WAREHOUSE_CONTROLLER = "CreateWarehouseController";
     private static final String SEARCH_DEVICE = "SearchDevice";
     private static final String SEARCH_DEVICE_CONTROLLER = "SearchDeviceController";
-    private static final String DELETE_PRODUCT = "DeleteProduct";
-    private static final String DELETE_PRODUCT_CONTROLLER = "DeleteProductController";
-    private static final String UPDATE_PRODUCT = "UpdateProduct";
-    private static final String UPDATE_PRODUCT_CONTROLLER = "UpdateProductController";
+    private static final String DELETE_WAREHOUSE = "DeleteWarehouse";
+    private static final String DELETE_WAREHOUSE_CONTROLLER = "DeleteWarehouseController";
+    private static final String UPDATE_WAREHOUSE = "UpdateWarehouse";
+    private static final String UPDATE_WAREHOUSE_CONTROLLER = "UpdateWarehouseController";
     private static final String CREATE_CATEGORY = "CreateCategory";
     private static final String CREATE_CATEGORY_CONTROLLER = "CreateCategoryController";
     private static final String FIND_PRODUCT = "FindProduct";
@@ -41,14 +43,14 @@ public class MainController extends HttpServlet {
         try {
             String action = request.getParameter("action");
 
-            if (CREATE_DEVICE.equals(action)) {
-                url = CREATE_DEVICE_CONTROLLER;
+            if (CREATE_WAREHOUSE.equals(action)) {
+                url = CREATE_WAREHOUSE_CONTROLLER;
             } else if (SEARCH_DEVICE.equals(action)) {
                 url = SEARCH_DEVICE_CONTROLLER;
-            } else if (DELETE_PRODUCT.equals(action)) {
-                url = DELETE_PRODUCT_CONTROLLER;
-            } else if (UPDATE_PRODUCT.equals(action)) {
-                url = UPDATE_PRODUCT_CONTROLLER;
+            } else if (DELETE_WAREHOUSE.equals(action)) {
+                url = DELETE_WAREHOUSE_CONTROLLER;
+            } else if (UPDATE_WAREHOUSE.equals(action)) {
+                url = UPDATE_WAREHOUSE_CONTROLLER;
             } else if (FIND_PRODUCT.equals(action)) {
                 url = FIND_PRODUCT_CONTROLLER;
             } else if (GET_LIST.equals(action)) {
@@ -57,6 +59,8 @@ public class MainController extends HttpServlet {
                 url = INPUT_DEVICE_INFORMATION_CONTROLLER;
             } else if (CREATE_CATEGORY.equals(action)) {
                 url = CREATE_CATEGORY_CONTROLLER;
+            } else if (GET_LIST_WAREHOUSE.equals(action)) {
+                url = GET_LIST_WAREHOUSE_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

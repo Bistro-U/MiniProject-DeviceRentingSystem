@@ -5,9 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.naming.NamingException;
 import quanghung.utils.DBUtils;
 
@@ -19,6 +17,7 @@ public class WarehouseDAO {
     private static final String UPDATE_WAREHOUSE = "UPDATE warehouse SET warehouseName=?, location=?, limitAmount=? WHERE warehouseID=?";
     private static final String CREATE_WAREHOUSE = "INSERT INTO warehouse(warehouseName,location,limitAmount,status) VALUES (?,?,?,?)";
     private static final String GET_WAREHOUSE_ID = "SELECT warehouseID FROM warehouse WHERE warehouseName=?";
+    private static final String CHECK_EXIST_DEVICES = "SELECT * FROM warehouse w JOIN device de ON w.warehouseID = de.warehouseID WHERE w.warehouseID = ?";
 
     public int getWarehouseID(String warehouseName) throws SQLException {
         int warehouseID = 0;
@@ -47,21 +46,48 @@ public class WarehouseDAO {
         }
         return warehouseID;
     }
+    
+    public static boolean checkExistDevices(int warehouseID) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_EXIST_DEVICES);
+                ptm.setInt(1, warehouseID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    count++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count > 0;
+    }
 
-    public boolean createWarehouse(WarehouseDTO warehouse) throws SQLException, ClassNotFoundException, NamingException {
+    public static boolean createWarehouse(String warehouseName, String location, int limitAmount) throws SQLException, ClassNotFoundException, NamingException {
         boolean check = false;
         Connection conn = null;
-        ResultSet rs = null;
         PreparedStatement ptm = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(CREATE_WAREHOUSE);
-                ptm.setString(1, warehouse.getWarehouseName());
-                ptm.setString(2, warehouse.getLocation());
-                ptm.setInt(3, warehouse.getLimitAmount());
+                ptm.setString(1, warehouseName);
+                ptm.setString(2, location);
+                ptm.setInt(3, limitAmount);
                 ptm.setBoolean(4, true);
-                check = ptm.executeUpdate() > 0 ? true : false;
+                check = ptm.executeUpdate() > 0;
             }
         } finally {
             if (ptm != null) {
@@ -74,7 +100,7 @@ public class WarehouseDAO {
         return check;
     }
 
-    public boolean updateWarehouse(WarehouseDTO warehouse) throws SQLException {
+    public static boolean updateWarehouse(WarehouseDTO warehouse) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -101,7 +127,7 @@ public class WarehouseDAO {
         return check;
     }
 
-    public boolean deleteWarehouse(String warehouseID) throws SQLException {
+    public static boolean deleteWarehouse(int warehouseID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -110,7 +136,7 @@ public class WarehouseDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_WAREHOUSE);
                 ptm.setBoolean(1, false);
-                ptm.setString(2, warehouseID);
+                ptm.setInt(2, warehouseID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -126,8 +152,8 @@ public class WarehouseDAO {
         return check;
     }
 
-    public Map<Integer, String> getWarehouse() throws SQLException {
-        Map<Integer, String> warehouse = new HashMap<>();
+    public static ArrayList<WarehouseDTO> getWarehouse() throws SQLException {
+        ArrayList<WarehouseDTO> warehouses = new ArrayList<>();
         Connection conn = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
@@ -139,7 +165,11 @@ public class WarehouseDAO {
                 while (rs.next()) {
                     int warehouseID = rs.getInt("warehouseID");
                     String warehouseName = rs.getString("warehouseName");
-                    warehouse.put(warehouseID, warehouseName);
+                    String location = rs.getString("location");
+                    int limitAmount = rs.getInt("limitAmount");
+                    boolean status = rs.getBoolean("status");
+                    WarehouseDTO warehouse = new WarehouseDTO(warehouseID, warehouseName, location, limitAmount, status);
+                    warehouses.add(warehouse);
                 }
             }
         } catch (Exception e) {
@@ -155,7 +185,7 @@ public class WarehouseDAO {
                 conn.close();
             }
         }
-        return warehouse;
+        return warehouses;
     }
 
     public List<WarehouseDTO> searchWarehouse(String search) throws SQLException {

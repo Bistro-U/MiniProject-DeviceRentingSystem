@@ -79,8 +79,8 @@ public class CategoryDAO {
         return cateName;
     }
 
-    public Map<String, String> getCategory() throws SQLException {
-        Map<String, String> category = new HashMap<>();
+    public ArrayList<CategoryDTO> getCategory() throws SQLException {
+        ArrayList<CategoryDTO> category = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -92,7 +92,7 @@ public class CategoryDAO {
                 while (rs.next()) {
                     String cateID = rs.getString("cateID");
                     String cateName = rs.getString("cateName");
-                    category.put(cateID, cateName);
+                    category.add(new CategoryDTO(cateID, cateName, true));
                 }
             }
         } catch (Exception e) {
@@ -111,7 +111,7 @@ public class CategoryDAO {
         return category;
     }
 
-    public boolean createCategory(CategoryDTO category) throws SQLException, NamingException {
+    public boolean createCategory(CategoryDTO category) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

@@ -16,7 +16,7 @@ public class DescriptionDAO {
     private static final String UPDATE_DESCRIPTION = "UPDATE description SET descriptionName=? WHERE descriptionID=?";
     private static final String CREATE_DESCRIPTION = "INSERT INTO description(descriptionName,cateID,status) VALUES (?,?,?)";
 
-    public boolean createDescription(DescriptionDTO description) throws SQLException, NamingException {
+    public boolean createDescription(DescriptionDTO description) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

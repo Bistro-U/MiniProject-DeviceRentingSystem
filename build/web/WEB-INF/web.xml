@@ -17,12 +17,32 @@
         <servlet-class>quanghung.controller.SearchDeviceController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetListController</servlet-name>
-        <servlet-class>quanghung.controller.GetListController</servlet-class>
+        <servlet-name>GetListWarehouseController</servlet-name>
+        <servlet-class>quanghung.controller.GetListWarehouseController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>InputDeviceInfoController</servlet-name>
         <servlet-class>quanghung.controller.InputDeviceInfoController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateWarehouseController</servlet-name>
+        <servlet-class>quanghung.controller.UpdateWarehouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateWarehouseController</servlet-name>
+        <servlet-class>quanghung.controller.CreateWarehouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteWarehouseController</servlet-name>
+        <servlet-class>quanghung.controller.DeleteWarehouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchWarehouseController</servlet-name>
+        <servlet-class>quanghung.controller.SearchWarehouseController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetListCategoryController</servlet-name>
+        <servlet-class>quanghung.controller.GetListCategoryController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
@@ -41,12 +61,32 @@
         <url-pattern>/SearchDeviceController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetListController</servlet-name>
-        <url-pattern>/GetListController</url-pattern>
+        <servlet-name>GetListWarehouseController</servlet-name>
+        <url-pattern>/GetListWarehouseController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>InputDeviceInfoController</servlet-name>
         <url-pattern>/InputDeviceInfoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateWarehouseController</servlet-name>
+        <url-pattern>/UpdateWarehouseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateWarehouseController</servlet-name>
+        <url-pattern>/CreateWarehouseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteWarehouseController</servlet-name>
+        <url-pattern>/DeleteWarehouseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchWarehouseController</servlet-name>
+        <url-pattern>/SearchWarehouseController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetListCategoryController</servlet-name>
+        <url-pattern>/GetListCategoryController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

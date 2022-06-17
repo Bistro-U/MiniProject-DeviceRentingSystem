@@ -90,7 +90,7 @@
                     Manage Devices
                 </button>
             </a>
-            <a href="warehousemanager.html">
+            <a href="MainController?action=GetListWarehouse">
                 <button class="btn btn-secondary">
                     Manage Warehouse
                 </button>

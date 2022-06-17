@@ -18,7 +18,7 @@ public class Device_DescriptionDAO {
     private static final String UPDATE_DESCRIPTION = "UPDATE description SET descriptionName=? WHERE descriptionID=?";
     private static final String CREATE_DEVICE_DESCRIPTION = "INSERT INTO device_description(deviceID,detailID) VALUES (?,?)";
 
-    public boolean createDevice_Description(int deviceID, int detailID) throws SQLException, NamingException {
+    public boolean createDevice_Description(int deviceID, int detailID) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

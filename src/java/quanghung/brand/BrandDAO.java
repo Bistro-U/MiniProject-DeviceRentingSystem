@@ -46,7 +46,7 @@ public class BrandDAO {
         return brandID;
     }
 
-    public boolean createBrand(BrandDTO brand) throws SQLException, NamingException {
+    public boolean createBrand(BrandDTO brand) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

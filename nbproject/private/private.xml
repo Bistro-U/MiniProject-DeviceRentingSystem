@@ -3,7 +3,30 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/duong/OneDrive/Desktop/DeviceManagement/web/deviceManagement.jsp</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/InputDeviceInfoController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/CreateDeviceController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/device/DeviceDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/category/CategoryError.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/descriptionDetail/DescriptionDetailDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/utils/DBUtils.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/brand/BrandDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/SearchDeviceController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/warehouse/WarehoueError.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/warehouse/WarehouseDTO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/warehouse/WarehouseDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/web/deviceManagement.jsp</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/MainController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/web/categoryManagement.jsp</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/descriptionDetail/DescriptionDetailError.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/category/CategoryDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/CreateCategoryController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/description/DescriptionDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/UpdateWarehouseController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/DeleteWarehouseController.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/device_description/Device_DescriptionDAO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/category/CategoryDTO.java</file>
+            <file>file:/C:/Users/Trung%20Duong/OneDrive/Documents/GitHub/MiniProject-DeviceRentingSystem/src/java/quanghung/controller/GetListWarehouseController.java</file>
         </group>
     </open-files>
 </project-private>

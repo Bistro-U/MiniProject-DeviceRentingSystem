@@ -46,7 +46,7 @@ public class DescriptionDetailDAO {
         return descriptionName;
     }
 
-    public boolean createDescriptionDetail(DescriptionDetailDTO detail) throws SQLException, NamingException {
+    public boolean createDescriptionDetail(DescriptionDetailDTO detail) throws SQLException, NamingException, ClassNotFoundException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
