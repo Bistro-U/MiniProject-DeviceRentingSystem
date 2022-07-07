@@ -1,12 +1,16 @@
 package quanghung.controller;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
@@ -18,6 +22,7 @@ import quanghung.device.DeviceError;
 import quanghung.device_description.Device_DescriptionDAO;
 import quanghung.warehouse.WarehouseDAO;
 
+@MultipartConfig
 public class CreateDeviceController extends HttpServlet {
 
     private static final String ERROR = "createDeviceInfo.jsp";
@@ -47,7 +52,15 @@ public class CreateDeviceController extends HttpServlet {
             String cateName = request.getParameter("cateName");
             int warehouseID = warehouseDao.getWarehouseID(warehouseName);
             String cateID = categoryDao.getCateID(cateName);
+           Part part = request.getPart("image");
 
+            String realPath = request.getServletContext().getRealPath("/pictures");
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectories(Paths.get(realPath));
+            }
+            part.write(realPath + "/" + fileName);
+            String image = "pictures/" + fileName;
             if (quantity <= 0) {
                 deviceError.setQuantityError("Quantity must be a positive integer");
                 checkValidation = false;
@@ -57,7 +70,7 @@ public class CreateDeviceController extends HttpServlet {
                 checkValidation = false;
             }
             if (checkValidation) {
-                boolean createDevice = deviceDao.createDevice(deviceName, warehouseID, brandID, quantity, cateID);
+                boolean createDevice = deviceDao.createDevice(deviceName,image, warehouseID, brandID, quantity, cateID);
                 int deviceID = deviceDao.getDeviceID(deviceName);
                 List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
                 for (int i = 1; i <= listDescription.size(); i++) {
@@ -90,18 +103,6 @@ public class CreateDeviceController extends HttpServlet {
         }
     }
 
-//    public static boolean checkAInteger(int number) {
-//        do {
-//            try {
-//                if (number <= 0) {
-//                    return true;
-//                }
-//            } catch (Exception e) {
-//                return true;
-//            }
-//        } while (number <= 0);
-//        return false;
-//    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

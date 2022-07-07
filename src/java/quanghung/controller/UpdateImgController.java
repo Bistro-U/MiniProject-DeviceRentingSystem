@@ -1,45 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package quanghung.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import quanghung.device.DeviceDAO;
 
-/**
- *
- * @author duong
- */
-public class NewServlet extends HttpServlet {
+@MultipartConfig
+public class UpdateImgController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "updateImg.jsp";
+    private static final String SUCCESS = "MainController?search=&action=SearchDevice";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+            int deviceID = Integer.parseInt(request.getParameter("deviceID"));
+            Part part = request.getPart("image");
+            String realPath = request.getServletContext().getRealPath("/images");
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectories(Paths.get(realPath));
+            }
+            if (!fileName.equals("")) {
+                part.write(realPath + "/" + fileName);
+            }
+            String image = "images/" + fileName;
+            DeviceDAO deviceDao = new DeviceDAO();
+            boolean check = deviceDao.updateImg(image, deviceID);
+            if (check) {
+                request.setAttribute("DEVICE_ID", deviceID);
+                url = SUCCESS;
+            }
+        } catch (Exception e) {
+            log("Error at UpdateProductController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

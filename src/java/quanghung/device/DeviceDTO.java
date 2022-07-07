@@ -4,6 +4,7 @@ public class DeviceDTO {
 
     private int deviceID;
     private String deviceName;
+    private String url;
     private int warehouseID;
     private String warehouseName;
     private int brandID;
@@ -16,6 +17,7 @@ public class DeviceDTO {
     public DeviceDTO() {
         this.deviceID = 0;
         this.deviceName = "";
+        this.url = "";
         this.warehouseID = 0;
         this.warehouseName = "";
         this.brandID = 0;
@@ -26,9 +28,10 @@ public class DeviceDTO {
         this.status = true;
     }
 
-    public DeviceDTO(int deviceID, String deviceName, int warehouseID, String warehouseName, int brandID, String brandName, int quantity, String cateID, String cateName, boolean status) {
+    public DeviceDTO(int deviceID, String deviceName, String url, int warehouseID, String warehouseName, int brandID, String brandName, int quantity, String cateID, String cateName, boolean status) {
         this.deviceID = deviceID;
         this.deviceName = deviceName;
+        this.url = url;
         this.warehouseID = warehouseID;
         this.warehouseName = warehouseName;
         this.brandID = brandID;
@@ -53,6 +56,14 @@ public class DeviceDTO {
 
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getWarehouseID() {

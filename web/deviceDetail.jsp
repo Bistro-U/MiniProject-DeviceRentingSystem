@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Devices</title>
+        <title>Device Detail</title>
         <link rel="stylesheet" href="css/style.css" />
         <style>
             @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap");
@@ -25,6 +26,8 @@
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
+
     </head>
 
     <body>
@@ -34,7 +37,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="#"><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?action=HomeSearchDevice&search="><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="">
@@ -92,31 +95,20 @@
     </div>
     <div class="detail-devices-wapper d-flex row">
         <div class="col-sm-7 order-first">
-            <img class="img-devices" src="img/macbook.png" id="main-img">
-            <div class="col-sm-12 ml-5">
-                <p>
-                    <img class="img-many" src="img/macbook.png">
-                    <img class="img-many" src="img/macbook1.png">
-                    <img class="img-many" src="img/macbook2.png">
-                    <img class="img-many" src="img/macbook3.png">
-                </p>
-            </div>
+            <img class="img-devices" src="${requestScope.URL}" id="main-img">
         </div>
         <div class="row detail-devices col-sm-5 mt-5">
             <div class="divices-name col-sm-12 mt-5">
-                <h2>MacBook Pro Bla Bla Bla</h2>
+                <h2>${requestScope.DEVICE_NAME}</h2>
                 <br/>
             </div>
             <div class="col-sm-12">
-                <p>Device Name : ${requestScope.DEVICE_NAME}</p>
                 <p>Warehouse : ${requestScope.WAREHOUSE_NAME}</p>
                 <p>Brand Name : ${requestScope.BRAND_NAME}</p>
                 <p>Quantity : ${requestScope.QUANTITY}</p>
                 <div class="buttons_added">
                     <p>Amount: </p>
-                    <input class="minus is-form ml-3" type="button" value="-">
-                    <input aria-label="quantity" class="input-qty" max="100" min="1" name="" type="number" value="1">
-                    <input class="plus is-form" type="button" value="+">
+                    <input aria-label="quantity" max="100" min="1" name="" type="number" value="1">
                 </div>
                 </span>
                 <div class="col-sm-12 mt-5">
@@ -138,32 +130,37 @@
         </div>
     </div>
 
-    <footer></footer>
-    <script>
-                $('input.input-qty').each(function() {
-        var $this = $(this),
-                qty = $this.parent().find('.is-form'),
-                min = Number($this.attr('min')),
-                max = Number($this.attr('max'))
-                if (min == 0) {
-        var d = 0
-        } else d = min
-                $(qty).on('click', function() {
-        if ($(this).hasClass('minus')) {
-        if (d > min) d += - 1
-        } else if ($(this).hasClass('plus')) {
-        var x = Number($this.val()) + 1
-                if (x <= max) d += 1
-        }
-        $this.attr('value', d).val(d)
-        })
-        })
-                $(() = > {
-                $('p img').click(function(){
-                let imgPatch = $(this).attr('src');
-                        $('#main-img').attr('src', imgPatch);
-                })
-                })
-    </script>
+    <footer class="footer-distributed">
+        <div class="footer-left">
+            <h3>Company<span>DRS</span></h3>
+            <p class="footer-company-name">Company DRS © 2022</p>
+        </div>
+        <div class="footer-center">
+            <div>
+                <i class="fa fa-map-marker"></i>
+                <p><span>FPT UNIVERSITY</span> KCN - THU DUC CITY - TP.HCM</p>
+            </div>
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>3463452343</p>
+            </div>
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+            </div>
+        </div>
+        <div class="footer-right">
+            <p class="footer-company-about">
+                <span>About the company</span>
+                The company specializes in providing and leasing IT equipment to businesses and companies in need.
+            </p>
+            <div class="footer-icons">
+                <a href="https://www.facebook.com/"><i class="ti-facebook"></i></a>
+                <a href="https://www.twitter.com/"><i class="ti-twitter"></i></a>
+                <a href="https://www.instagram.com/"><i class="ti-instagram"></i></a>
+                <a href="https://www.github.com/"><i class="ti-github"></i></a>
+            </div>
+        </div>
+    </footer>  
 </body>
 </html>

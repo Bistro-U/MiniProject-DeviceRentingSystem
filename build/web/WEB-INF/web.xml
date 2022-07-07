@@ -132,6 +132,14 @@
         <servlet-name>DetailController</servlet-name>
         <servlet-class>quanghung.controller.DetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateImgController</servlet-name>
+        <servlet-class>quanghung.controller.UpdateImgController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OpenUpdateImgPageController</servlet-name>
+        <servlet-class>quanghung.controller.OpenUpdateImgPageController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
@@ -263,6 +271,14 @@
     <servlet-mapping>
         <servlet-name>DetailController</servlet-name>
         <url-pattern>/DetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateImgController</servlet-name>
+        <url-pattern>/UpdateImgController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OpenUpdateImgPageController</servlet-name>
+        <url-pattern>/OpenUpdateImgPageController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

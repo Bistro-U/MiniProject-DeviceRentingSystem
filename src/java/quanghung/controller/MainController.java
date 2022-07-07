@@ -80,6 +80,10 @@ public class MainController extends HttpServlet {
     private static final String HOME_SEARCH_DEVICE_CONTROLLER = "HomeSearchDeviceController";
     private static final String DEVICE_DETAIL = "Detail";
     private static final String DEVICE_DETAIL_CONTROLLER = "DetailController";
+    private static final String UPDATE_IMG = "UpdateImg";
+    private static final String UPDATE_IMG_CONTROLLER = "UpdateImgController";
+    private static final String OPEN_UPDATE_IMG_PAGE = "OpenUpdateImgPage";
+    private static final String OPEN_UPDATE_IMG_PAGE_CONTROLLER = "OpenUpdateImgPageController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -160,6 +164,10 @@ public class MainController extends HttpServlet {
                 url = HOME_SEARCH_DEVICE_CONTROLLER;
             } else if (DEVICE_DETAIL.equals(action)) {
                 url = DEVICE_DETAIL_CONTROLLER;
+            } else if (UPDATE_IMG.equals(action)) {
+                url = UPDATE_IMG_CONTROLLER;
+            } else if (OPEN_UPDATE_IMG_PAGE.equals(action)) {
+                url = OPEN_UPDATE_IMG_PAGE_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

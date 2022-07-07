@@ -224,12 +224,12 @@
                             <tr>
                                 <td class="text-center">${counter.count}</td>
                                 <td class="text-center">${device.deviceID}</td>
-                                <td class="text-center"><img src="" alt="no import image"/></td>
+                                <td class="text-center"><img class="img-product" src="${device.url}" alt="no import image"/></td>
                                 <td class="text-center">${device.deviceName}</td>
                                 <td class="text-center">${device.warehouseName}</td>
                                 <td class="text-center">${device.brandName}</td>
                                 <td class="text-center">${device.quantity}</td>
-                                <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&warehouseName=${device.warehouseName}&brandName=${device.brandName}&quantity=${device.quantity}">Detail</a></td>
+                                <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&url=${device.url}&warehouseName=${device.warehouseName}&brandName=${device.brandName}&quantity=${device.quantity}">Detail</a></td>
                                 <td class="text-center"><button type="submit">Borrow</button></td>
                             </tr>
                         </c:forEach>    

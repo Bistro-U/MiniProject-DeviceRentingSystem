@@ -134,26 +134,26 @@
                 <h2>Insert Device Information</h2>
             </div>
             <div class="col-sm-12">
-                <form action="MainController" method="POST">
-                    <div class="col-sm-12 text-center mt-3 ml-5 mb-3">
+                <form action="CreateDeviceController" method="POST" enctype="multipart/form-data">
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Device name</h4>
                         </label>
                         <input type="text" name="deviceName"  value="${deviceName}" class="col-sm-4"/>
                     </div>
-                    <div class="col-sm-12 text-center ml-5 mb-3">
+                    <div class="choose-manager-tittle col-sm-12 text-center ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Category name</h4>
                         </label>
                         <input type="text" name="cateName"  value="${cateName}" class="col-sm-4" readonly>
                     </div>
-                    <div class="col-sm-12 text-center ml-5 mb-3">
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Warehouse name</h4>
                         </label>
                         <input type="text" name="warehouseName" value="${warehouseName}" class="col-sm-4" readonly>
                     </div>
-                    <div class="col-sm-12 text-center mt-3 ml-5 mb-3">
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Brand Name</h4>
                         </label>
@@ -165,14 +165,14 @@
                             </c:forEach>
                         </select> </br>               
                     </div>
-                    <div class="col-sm-12 text-center mt-3 ml-5 mb-3">
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Quantity</h4>
                         </label>
                         <input type="number" name="quantity" required="" placeholder="Input Quantity" id="input-device" class="col-sm-4"/>
                     </div>
                     <c:forEach var="description" items="${descriptionList}" varStatus="counter" >
-                        <div class="col-sm-12 text-center mt-3 ml-5 mb-3">
+                        <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
                             <label for="#" class="col-sm-2">
                                 <h4>${description.descriptionName}</h4>
                             </label>
@@ -186,6 +186,13 @@
                             <c:set var="detailID" value='detailID'/>
                         </div>
                     </c:forEach>
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-5">
+                        <label for="#" class="col-sm-2">
+                            <h4>Choose File</h4>
+                        </label>
+                            <img class="product-img-thumb" id="img-thumb" height="100px" width="100px" src="" alt="" >
+                            <input type="file"  name="image" required="" onchange="readURL(this);">
+                    </div>
                     <c:if test="${deviceError.getQuantityError() != null}">
                         <div class="alert alert-warning" role="alert">
                             <strong>ERROR!</strong> ${deviceError.getQuantityError()}
@@ -219,7 +226,15 @@
             $("#detailModal").modal("show");
         });
     });
-
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('img-thumb').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 
 </html>

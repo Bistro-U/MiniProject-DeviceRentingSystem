@@ -171,6 +171,7 @@ public class requestDAO {
                     boolean status = rs.getBoolean("status");
                     int deviceID = rs.getInt("deviceID");
                     String deviceName = rs.getString("deviceName");
+                    String url = rs.getString("url");
                     int warehouseID = rs.getInt("warehouseID");
                     String warehouseName = rs.getString("warehouseName");
                     int brandID = rs.getInt("brandID");
@@ -178,7 +179,7 @@ public class requestDAO {
                     int quantity = rs.getInt("quantity");
                     String cateID = rs.getString("cateID");
                     String cateName = rs.getString("cateName");
-                    list.add(new DeviceDTO(deviceID, deviceName, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                    list.add(new DeviceDTO(deviceID, deviceName,url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
                 }
             }
         } catch (Exception e) {

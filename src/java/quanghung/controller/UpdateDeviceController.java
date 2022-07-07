@@ -2,11 +2,15 @@ package quanghung.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
 import quanghung.description.DescriptionDTO;
@@ -14,6 +18,7 @@ import quanghung.device.DeviceDAO;
 import quanghung.device.DeviceDTO;
 import quanghung.device_description.Device_DescriptionDAO;
 
+@MultipartConfig
 public class UpdateDeviceController extends HttpServlet {
 
     private static final String ERROR = "MainController?search=&action=SearchDevice";
@@ -32,17 +37,27 @@ public class UpdateDeviceController extends HttpServlet {
             int quantity = Integer.parseInt(request.getParameter("quantity"));
             String cateName = request.getParameter("cateName");
             String cateID = categoryDao.getCateID(cateName);
+            Part part = request.getPart("image");
+
+            String realPath = request.getServletContext().getRealPath("/images");
+            String fileName = Paths.get(part.getSubmittedFileName()).getFileName().toString();
+            if (!Files.exists(Paths.get(realPath))) {
+                Files.createDirectories(Paths.get(realPath));
+            }
+            if (!fileName.equals("")) {
+                part.write(realPath + "/" + fileName);
+            }
+            String image = "images/" + fileName;
             DeviceDAO deviceDao = new DeviceDAO();
             DescriptionDAO descriptionDao = new DescriptionDAO();
             Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
-            DeviceDTO device = new DeviceDTO(deviceID, deviceName, warehouseID, cateName, brandID, cateName, quantity, cateID, cateName, true);
+            DeviceDTO device = new DeviceDTO(deviceID, deviceName, image, warehouseID, cateName, brandID, cateName, quantity, cateID, cateName, true);
             List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-            int a = Integer.parseInt(request.getParameter("detailID1"));
             for (int i = 1; i <= listDescription.size(); i++) {
                 String d = "detailID" + String.valueOf(i);
                 String dd = request.getParameter(d);
                 int detailID = Integer.parseInt(dd);
-                int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID"+String.valueOf(i)));
+                int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
                 boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
             }
             boolean check = deviceDao.updateDevice(device);

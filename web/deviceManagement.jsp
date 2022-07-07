@@ -13,13 +13,17 @@
         </style>
         <link rel="stylesheet" href="fonts/themify-icons/themify-icons.css">
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/themify-icons/themify-icons.css">
+        <link rel="icon" href="./img/word-image-1047.jpg" type="image/x-icon">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
               integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
         <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
         <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="/fonts/fontawesome-free-6.1.1-web/css/all.min.css">
 
     </head>
+
     <body>
         <c:set var="brandListBasedOnCategory" value="${requestScope.LIST_BRAND_BASED_ON_CATEGORY}"/>
         <c:set var="search" value="${requestScope.SEARCH}"/>
@@ -87,7 +91,7 @@
                                 <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="MainController?action=Logout">Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -96,17 +100,17 @@
         </div>
         <div class="manage-navbar">
             <a href="MainController?search=&action=SearchDevice">
-                <button class="btn btn-primary" name="action" type="submit" value="SearchDevice">
+                <button class="btn btn-color btnoption" name="action" type="submit" value="SearchDevice">
                     Manage Devices
                 </button>
             </a>
             <a href="MainController?action=GetListWarehouse">
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary btnoption">
                     Manage Warehouse
                 </button>
             </a>
             <a href="MainController?action=GetListCategory">
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary btnoption">
                     Manage Catagory
                 </button>
             </a>
@@ -179,12 +183,13 @@
                 </div>
             </div>
         </div>
-        <div class="table-wapper col-sm-12 container-fluid">
+        <div class="table-wapper col-sm-12">
             <c:if test="${not empty deviceList}">          
                 <table class="table text-center">
                     <thead>
                         <tr>
                             <th>DeviceID</th>
+                            <th>Images</th>
                             <th id="device-nametable">Device Name</th>
                             <th>Brand</th>
                             <th>Quantity</th>
@@ -200,11 +205,14 @@
 
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
-                        <form action="MainController" method="POST">
-
+                        <form action="UpdateDeviceController"  method="POST" enctype="multipart/form-data">
                             <c:set var="modal" value="detailModal${counter1.count}"/>
                             <c:set var="descriptionList" value="${requestScope[device.cateID]}"/>
                             <td ><input type="text" name="deviceID" class="text-center inputmanager" value="${device.deviceID}"  readonly></td>
+                            <td >
+                                <a href="MainController?action=OpenUpdateImgPage&deviceID=${device.deviceID}"><img class="img-product-manager" src="${device.url}" ></a>
+                            </td>               
+                            </td>
                             <td><input type="text" name="deviceName" class="text-center inputmanager" value="${device.deviceName}" id="input-devicename"></td>
                             <td>
                                 <select name="brandID" class="text-center inputmanager pt-1 pb-1 pl-2 pr-4">
@@ -245,7 +253,7 @@
                                                                 <c:forEach var="detail" items="${requestScope[description.descriptionName]}">
                                                                     <c:choose>
                                                                         <c:when test="${dl[counter1.count - 1][counter2.count-1].value.equals(detail.getDetailName())}">
-                                                                            <option value="aaa" selected>${detail.getDetailName()}</option>
+                                                                            <option value="${detail.getDetailID()}" selected>${detail.getDetailName()}</option>
                                                                             <c:set var="currentDetailID" value="${detail.getDetailID()}"/>
                                                                         </c:when>
                                                                         <c:otherwise>
@@ -287,8 +295,8 @@
                                     </c:forEach>
                                 </select>
                             </td>
-                            <td><button type="submit"  name="action" value="DeleteDevice" class="btn btn-dark">Delete</button></td>
-                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-dark">Update</button></td>
+                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
+                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success"><i class="fas fa-recycle"></i></button></td>
                         </form>
                         </tr>
                         <c:set var="modal" value="detailModal"/>
@@ -308,8 +316,17 @@
             $("#detailError").modal("show");
             $("#success").modal("show");
         });
-
-
+        
+        function chooseFile(fileInput,c) {
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                console.log(c);
+                reader.onload = function (e) {
+                    $('#' + c).attr('src', e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
     </script>
 
 </html>

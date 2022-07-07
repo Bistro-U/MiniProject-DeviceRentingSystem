@@ -1,60 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package quanghung.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import quanghung.description.DescriptionDAO;
-import quanghung.descriptionDetail.DescriptionDetailDAO;
 
-/**
- *
- * @author duong
- */
-public class DetailController extends HttpServlet {
+public class OpenUpdateImgPageController extends HttpServlet {
 
-    private static final String ERROR = "MainController?search=&action=SearchDevice";
-    private static final String SUCCESS = "deviceDetail.jsp";
+    private static final String SUCCESS = "updateImg.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SUCCESS;
         try {
             int deviceID = Integer.parseInt(request.getParameter("deviceID"));
-            String deviceName = request.getParameter("deviceName");
-            String image = request.getParameter("url");
-            String warehouseName = request.getParameter("warehouseName");
-            String brandName = request.getParameter("brandName");
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            DescriptionDAO descriptionDAO = new DescriptionDAO();
-            DescriptionDetailDAO detailDAO = new DescriptionDetailDAO();
-            Map<Integer, String> detailList = detailDAO.getListDescriptionDetailBasedOnDevice(deviceID);
-            detailList.entrySet();
-            List<String> descriptionList = new ArrayList<String>();
-            for (Map.Entry<Integer, String> detail : detailList.entrySet()) {
-                descriptionList.add(String.valueOf(descriptionDAO.getDescriptionName(detail.getKey())));
-            }
-            url = SUCCESS;
             request.setAttribute("DEVICE_ID", deviceID);
-            request.setAttribute("DEVICE_NAME", deviceName);
-            request.setAttribute("URL", image);
-            request.setAttribute("WAREHOUSE_NAME", warehouseName);
-            request.setAttribute("BRAND_NAME", brandName);
-            request.setAttribute("QUANTITY", quantity);
-            request.setAttribute("DESCRIPTION_LIST", descriptionList);
-            request.setAttribute("DETAIL_LIST", detailList);
         } catch (Exception e) {
-            System.out.println("");
+            log("Error at UpdateProductController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

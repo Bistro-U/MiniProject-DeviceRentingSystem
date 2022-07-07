@@ -36,6 +36,7 @@ public class DeviceDAO {
                 if (rs.next()) {
                     boolean status = rs.getBoolean("status");
                     String deviceName = rs.getString("deviceName");
+                    String url = rs.getString("url");
                     int warehouseID = rs.getInt("warehouseID");
                     String warehouseName = rs.getString("warehouseName");
                     int brandID = rs.getInt("brandID");
@@ -43,7 +44,7 @@ public class DeviceDAO {
                     int quantity = rs.getInt("quantity");
                     String cateID = rs.getString("cateID");
                     String cateName = rs.getString("cateName");
-                    device = new DeviceDTO(deviceID, deviceName, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status);
+                    device = new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status);
                 }
             }
         } catch (Exception e) {
