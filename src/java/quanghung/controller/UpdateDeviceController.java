@@ -34,22 +34,26 @@ public class UpdateDeviceController extends HttpServlet {
             int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));
             int brandID = Integer.parseInt(request.getParameter("brandID"));
             int quantity = Integer.parseInt(request.getParameter("quantity"));
-            String cateName = request.getParameter("cateName");
-            String cateID = categoryDao.getCateID(cateName);
-            DeviceDAO deviceDao = new DeviceDAO();
-            DescriptionDAO descriptionDao = new DescriptionDAO();
-            Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
-            List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-            for (int i = 1; i <= listDescription.size(); i++) {
-                String d = "detailID" + String.valueOf(i);
-                String dd = request.getParameter(d);
-                int detailID = Integer.parseInt(dd);
-                int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
-                boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
-            }
-            boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID);
-            if (check) {
-                url = SUCCESS;
+            if (quantity < 0) {
+                request.setAttribute("ERROR_QUANTITY", "Quantity must be a number greater than 0");
+            } else {
+                String cateName = request.getParameter("cateName");
+                String cateID = categoryDao.getCateID(cateName);
+                DeviceDAO deviceDao = new DeviceDAO();
+                DescriptionDAO descriptionDao = new DescriptionDAO();
+                Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
+                List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
+                for (int i = 1; i <= listDescription.size(); i++) {
+                    String d = "detailID" + String.valueOf(i);
+                    String dd = request.getParameter(d);
+                    int detailID = Integer.parseInt(dd);
+                    int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
+                    boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
+                }
+                boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID);
+                if (check) {
+                    url = SUCCESS;
+                }
             }
         } catch (Exception e) {
             log("Error at UpdateProductController: " + e.toString());

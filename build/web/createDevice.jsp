@@ -30,6 +30,7 @@
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
         <c:set var="deviceError" value="${requestScope.DEVICE_ERROR}"/>
+        <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
 
         <div class="navbar-top">
             <div class="navbar-header">
@@ -44,18 +45,18 @@
                 <!-- welcome -->
                 <div class="col-sm-3 welcome d-flex align-items-center justify-content-end">
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center user-info" href="#"
-                           id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <img src="https://scontent.fsgn5-11.fna.fbcdn.net/v/t1.6435-9/148200636_528659258096027_8966625421411191162_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dzMdGh7CUt4AX978A2p&_nc_ht=scontent.fsgn5-11.fna&oh=00_AT_T8cl7XJeQ7xnVIt7NSbBeFkMmZy_8FtaihBZKvwhxjw&oe=62BB3767"
-                                 class="rounded-circle" height="20">
-                            <p class="user-name">Thienpnse150137</p>
+                        <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-end user-info"
+                           href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
+                            <img src="${sessionScope.Admin.picture}"
+                                 class="rounded-circle" height="25">
+                            <p class="user-name">${sessionScope.Admin.name}</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="myprofile.html">My profile</a>
+                                <a class="dropdown-item" href="myprofile.jsp">My profile</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="login.html">Logout</a>
+                                <a class="dropdown-item" href="MainController?action=Logout"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -64,64 +65,83 @@
         </div>
         <div class="manage-navbar">
             <a href="MainController?search=&action=SearchDevice">
-                <button class="btn btn-primary" name="action" type="submit" value="SearchDevice">
+                <button class="btn btn-color btnoption" name="action" type="submit" value="SearchDevice">
                     Manage Devices
                 </button>
             </a>
-            <a href="warehousemanager.html">
-                <button class="btn btn-secondary">
+            <a href="MainController?action=GetListWarehouse">
+                <button class="btn btn-secondary btnoption">
                     Manage Warehouse
                 </button>
             </a>
-            <a href="insertcatagory.html">
-                <button class="btn btn-secondary">
-                    Manage Category
+            <a href="MainController?action=GetListCategory">
+                <button class="btn btn-secondary btnoption">
+                    Manage Catagory
                 </button>
             </a>
         </div>
         <div class="row manager-function d-flex align-items-center">
             <div class="col-sm-6 left-function text-center">
-                <button type="button" class="btn">
-                    <!-- <i class="fas fa-plus-circle"></i>
-                    <label for="">insert new Device</label> -->
-                    <div class="nav-item  d-flex align-items-center insert-wapper">
-                        <a class="nav-link d-flex align-items-center" href="#"
-                           role="button">
-                            <label class="button-insert">Insert New Device</label>
-                        </a>
-                    </div>
-                </button>
+                <a href="MainController?action=GetList" class="insert">
+                    <button class="btn insertnew" type="button">
+                        <i class="fas fa-plus-circle"></i>
+                        <label class="button-insert">Insert New Devices</label>
+                    </button>
+                </a>
                 <button type="button" class="btn">
                     <!-- <i class="fas fa-plus-circle"></i>
                     <label for="">insert new Device</label> -->
                     <div class="nav-item dropdown d-flex align-items-center">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdownMenuLink"
                            role="button" data-toggle="dropdown">
-                            <input type="submit" value="Ram">
+                            <label class="button-insert">Filter</label>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li>
-                                <a class="dropdown-item" href="#">Ram</a>
+                                <a class="dropdown-item" href="#">Brand</a>
+                                <ul class="drop-submenu-1">
+                                    <c:forEach var="brand" items="${brandList}">
+                                        <li>
+                                            <a value="${brand.key}" href="MainController?filter=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">CPU</a>
+                                <a class="dropdown-item" href="#">Category</a>
+                                <ul class="drop-submenu-2">
+                                    <c:forEach var="category" items="${categoryList}">
+                                        <li>
+                                            <a value="${category.key}" href="MainController?filter=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">VGA</a>
+                                <a class="dropdown-item" href="#">Warehouse</a>
+                                <ul class="drop-submenu-3">
+                                    <c:forEach var="warehouse" items="${warehouseList}">
+                                        <li>
+                                            <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
                             </li>
                         </ul>
                     </div>
-                </button>
-                <button type="button" class="btn">
-                    <label for="">Filter</label>
                 </button>
             </div>
             <div class="col-sm-6 right-function">
                 <div class="search">
                     <form action="" id="search-box">
                         <div class="row search-box-wrapper">
-                            <input type="text" id="search-text" class="col-8" placeholder="Tìm">
-                            <button id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                            <form action="MainController" method="POST">
+                                <input type="text" id="search-text" class="col-8" placeholder="Search by device name" name="search" value="${search}">
+                                <button type="submit" name="action" value="SearchDevice" id="search-btn" class="col-2"><i class="fas fa-search "></i></button>
+                            </form>
                         </div>
                     </form>
                 </div>

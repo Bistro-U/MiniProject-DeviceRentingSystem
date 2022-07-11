@@ -35,9 +35,11 @@
             <c:set var="descriptionList" value="${sessionScope.LIST_DESCRIPTION}"/>
             <c:set var="descriptionList" value="descriptionList"/>
         </c:forEach>
-        <c:set var="brandList" value="${requestScope.LIST_BRAND}"/>
-        <c:set var="warehouseList" value="${requestScope.LIST_WAREHOUSE}"/>
-        <c:set var="categoryList" value="${requestScope.LIST_CATEGORY}"/>
+        <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
+        <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
+        <c:set var="warehouseListFilter" value="${sessionScope.LIST_WAREHOUSE}"/>
+
+        <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:choose>
             <c:when test="${detailError.getDetailNameError() != null}" >
                 <div id="detailError" class="modal fade" role="dialog">
@@ -137,7 +139,7 @@
                                 <ul class="drop-submenu-1">
                                     <c:forEach var="brand" items="${brandList}">
                                         <li>
-                                            <a value="${brand.key}" href="MainController?search=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
+                                            <a value="${brand.key}" href="MainController?filter=${brand.key}&action=SearchDevice&value=${brand.value}">${brand.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -147,10 +149,7 @@
                                 <ul class="drop-submenu-2">
                                     <c:forEach var="category" items="${categoryList}">
                                         <li>
-                                            <a value="${category.key}" href="MainController?search=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
-                                            <ul class="drop-submenu-1">
-
-                                            </ul>
+                                            <a value="${category.key}" href="MainController?filter=${category.key}&action=SearchDevice&value=${category.value}">${category.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -160,12 +159,14 @@
                                 <ul class="drop-submenu-3">
                                     <c:forEach var="warehouse" items="${warehouseList}">
                                         <li>
-                                            <a value="${warehouse.key}" href="MainController?search=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
+                                            <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
                             </li>
-
+                            <li>
+                                <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
+                            </li>
                         </ul>
                     </div>
                 </button>
@@ -200,8 +201,9 @@
                             <th>Update</th>
                         </tr>
                     </thead>   
+                    ${sessionScope.ERROR}
                     <tbody>
-                        <c:set var="dl" value="${requestScope.LIST_DETAIL}"/>
+                        <c:set var="dl" value="${sessionScope.LIST_DETAIL}"/>
 
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
@@ -306,11 +308,16 @@
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>
-
+            <c:set var="QuantityError" value="${requestScope.ERROR_QUANTITY}"/>
+            <c:if test="${QuantityError != null}">
+                <input type="hidden" value="${QuantityError}" id="quantityError"/>
+            </c:if>
         </div>
     </body>
     <footer></footer>
     <script>
+        var error = document.getElementById("quantityError").value;
+        alert(error);
         $(document).ready(function () {
             $("#detailError").modal("show");
             $("#success").modal("show");
