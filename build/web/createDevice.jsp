@@ -157,15 +157,15 @@
                         <label for="#" class="col-sm-2">
                             <h4>Device name</h4>
                         </label>
-                        <input type="text" name="deviceName" class="col-sm-4" name="" id="input-device" required="" placeholder="Input Devices Name"/> </br>
+                        <input type="text" name="deviceName" class="col-sm-4" name="" id="input-device" required="" maxLength="50" placeholder="Input Devices Name"/> </br>
                     </div>
                     <div class="col-sm-12 text-center ml-5 mb-3">
                         <label for="#" class="col-sm-2">
                             <h4>Category name</h4>
                         </label>
 
-                        <select name="cateID" class="col-sm-4 pt-1 pb-1"  id="list-chose">
-                            <option selected disabled>Choose Category</option>
+                        <select name="cateID" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Category</option>
                             <c:forEach var="category" items="${categoryList}">
                                 <option value="${category.key}">${category.value}</option>
                             </c:forEach>
@@ -175,8 +175,8 @@
                         <label for="#" class="col-sm-2">
                             <h4>Warehouse name</h4>
                         </label>
-                        <select name="warehouseName" class="col-sm-4 pt-1 pb-1"  id="list-chose">
-                            <option selected disabled>Choose Warehouse</option>
+                        <select name="warehouseName" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Warehouse</option>
                             <c:forEach var="warehouse" items="${warehouseList}">
                                 <option value="${warehouse.value}">${warehouse.value}</option>
                             </c:forEach>

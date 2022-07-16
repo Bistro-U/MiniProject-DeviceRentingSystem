@@ -158,7 +158,7 @@
                         <label for="#" class="col-sm-2">
                             <h4>Device name</h4>
                         </label>
-                        <input type="text" name="deviceName"  value="${deviceName}" class="col-sm-4"/>
+                        <input type="text" name="deviceName" maxLength="50" value="${deviceName}" class="col-sm-4"/>
                     </div>
                     <div class="choose-manager-tittle col-sm-12 text-center ml-5 mb-3">
                         <label for="#" class="col-sm-2">
@@ -177,8 +177,8 @@
                             <h4>Brand Name</h4>
                         </label>
                         <c:set var="detailID" value="detailID"/>
-                        <select name="brandID" class="col-sm-4 pt-1 pb-1"  id="list-chose">
-                            <option selected disabled>Choose Brand</option>
+                        <select name="brandID" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>
+                            <option selected disabled value="">Choose Brand</option>
                             <c:forEach var="brand" items="${brandList}">
                                 <option value="${brand.key}">${brand.value}</option>
                             </c:forEach>
@@ -188,7 +188,13 @@
                         <label for="#" class="col-sm-2">
                             <h4>Quantity</h4>
                         </label>
-                        <input type="number" name="quantity" required="" placeholder="Input Quantity" id="input-device" class="col-sm-4"/>
+                        <input type="number" name="quantity" required="" min="0" placeholder="Input Quantity" id="input-device" class="col-sm-4"/>
+                    </div>
+                    <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
+                        <label for="#" class="col-sm-2">
+                            <h4>Deposit (VND)</h4>
+                        </label>
+                        <input type="number" name="deposit" required="" min="1000" step="1000" placeholder="Input Deposit" id="input-device" class="col-sm-4"/>
                     </div>
                     <c:forEach var="description" items="${descriptionList}" varStatus="counter" >
                         <div class="choose-manager-tittle col-sm-12 text-center mt-3 ml-5 mb-3">
@@ -196,8 +202,8 @@
                                 <h4>${description.descriptionName}</h4>
                             </label>
                             <c:set var="detailID" value='${detailID}${counter.count}'/>
-                            <select name="${detailID}" class="col-sm-4 pt-1 pb-1"  id="list-chose">   
-                                <option selected disabled>Choose ${description.descriptionName}</option>
+                            <select name="${detailID}" class="col-sm-4 pt-1 pb-1"  id="list-chose" required>   
+                                <option selected disabled value="">Choose ${description.descriptionName}</option>
                                 <c:forEach var="detail" items="${sessionScope[description.descriptionName]}">
                                     <option value="${detail.getDetailID()}">${detail.getDetailName()}</option>
                                 </c:forEach>
@@ -209,25 +215,9 @@
                         <label for="#" class="col-sm-2">
                             <h4>Choose File</h4>
                         </label>
-                            <img class="product-img-thumb" id="img-thumb" height="100px" width="100px" src="" alt="" >
-                            <input type="file"  name="image" required="" onchange="readURL(this);">
-                    </div>
-                    <c:if test="${deviceError.getQuantityError() != null}">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>ERROR!</strong> ${deviceError.getQuantityError()}
-                            <button type="button" class="close" data-dismiss="alert"> 
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </c:if>
-                    <c:if test="${detailError.getDetailNameError() != null}">
-                        <div class="alert alert-warning" role="alert">
-                            <strong>ERROR!</strong> ${detailError.getDetailNameError()}
-                            <button type="button" class="close" data-dismiss="alert"> 
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    </c:if>
+                        <img class="product-img-thumb" id="img-thumb" height="100px" width="100px" src="" alt="" >
+                        <input type="file"  name="image" required="" onchange="readURL(this);">
+                    </div>  
                     <div class="col-sm-12 d-flex justify-content-center">
                         <a href="" class="col-sm-5">
                             <button type="submit" name="action" value="CreateDevice" class="btn btn-primary col-sm-4">Insert</button>

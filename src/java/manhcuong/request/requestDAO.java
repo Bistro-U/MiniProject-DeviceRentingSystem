@@ -178,8 +178,9 @@ public class requestDAO {
                     String brandName = rs.getString("brandName");
                     int quantity = rs.getInt("quantity");
                     String cateID = rs.getString("cateID");
+                    int deposit = rs.getInt("deposit");
                     String cateName = rs.getString("cateName");
-                    list.add(new DeviceDTO(deviceID, deviceName,url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, status));
+                    list.add(new DeviceDTO(deviceID, deviceName, url, warehouseID, warehouseName, brandID, brandName, quantity, cateID, cateName, deposit, status));
                 }
             }
         } catch (Exception e) {

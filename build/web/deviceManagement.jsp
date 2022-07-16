@@ -189,6 +189,7 @@
                 <table class="table text-center">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>DeviceID</th>
                             <th>Images</th>
                             <th id="device-nametable">Device Name</th>
@@ -197,6 +198,7 @@
                             <th>Description</th>
                             <th>Category</th>
                             <th>Warehouse</th>
+                            <th>Deposit (VND)</th>
                             <th>Delete</th>
                             <th>Update</th>
                         </tr>
@@ -210,14 +212,15 @@
                         <form action="MainController"  method="POST">
                             <c:set var="modal" value="detailModal${counter1.count}"/>
                             <c:set var="descriptionList" value="${requestScope[device.cateID]}"/>
-                            <td ><input type="text" name="deviceID" class="text-center inputmanager" value="${device.deviceID}"  readonly></td>
+                            <td > <h5 class="center1">${counter1.count}</h5></td>
+                            <td ><input type="text" name="deviceID" class="text-center inputmanager minimum" value="${device.deviceID}"  readonly></td>
                             <td >
-                                <a href="MainController?action=OpenUpdateImgPage&deviceID=${device.deviceID}"><img class="img-product-manager" src="${device.url}" ></a>
+                                <a href="MainController?action=OpenUpdateImgPage&deviceID=${device.deviceID}&url=${device.url}"><img class="img-product-manager" src="${device.url}" ></a>
                             </td>               
                             </td>
                             <td><input type="text" name="deviceName" class="text-center inputmanager" value="${device.deviceName}" id="input-devicename"></td>
                             <td>
-                                <select name="brandID" class="text-center inputmanager pt-1 pb-1 pl-2 pr-4">
+                                <select name="brandID" id="fix_column" class="text-center inputmanager pt-1 pb-1 pl-2 pr-4">
                                     <c:forEach var="brand" items="${brandListBasedOnCategory[counter1.count-1]}">
                                         <c:choose>
                                             <c:when test="${brand.key.equals(device.brandID)}">
@@ -230,9 +233,9 @@
                                     </c:forEach>
                                 </select> </br>    
                             </td>
-                            <td><input type="number" name="quantity" class="text-center inputmanager" value="${device.quantity}"></td>
+                            <td><input type="number" name="quantity" min="0" class="text-center inputmanager minimum" value="${device.quantity}"></td>
                             <td><a  id="fa-info-circle">
-                                    <button class="btn" type="button" data-toggle="modal" data-target="#${modal}"><i class="fas fa-info-circle"></i></button></a>
+                                    <button class="btn center2" type="button" data-toggle="modal" data-target="#${modal}"><i class="fas fa-info-circle"></i></button></a>
                                 <div id="${modal}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg" role="content">
                                         <!-- Modal content-->
@@ -274,7 +277,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input name="cateName" type="text" class="text-center inputmanager" readonly
+                                <input name="cateName" type="text" id="fix_column"class="text-center inputmanager" readonly
                                        <c:forEach var="category" items="${categoryList}">
                                            <c:if test="${category.key.equals(device.cateID)}">                                 
                                                value="${category.value}"
@@ -296,8 +299,9 @@
                                     </c:forEach>
                                 </select>
                             </td>
-                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></td>
-                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success"><i class="fas fa-recycle"></i></button></td>
+                            <td ><input type="number" name="deposit" step="1000" min="1000" class="text-center inputmanager medium" value="${device.deposit}" ></td>
+                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
+                            <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success center2"><i class="fas fa-recycle"></i></button></td>
                         </form>
                         </tr>
                         <c:set var="modal" value="detailModal"/>
@@ -308,16 +312,10 @@
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>
-            <c:set var="QuantityError" value="${requestScope.ERROR_QUANTITY}"/>
-            <c:if test="${QuantityError != null}">
-                <input type="hidden" value="${QuantityError}" id="quantityError"/>
-            </c:if>
         </div>
     </body>
     <footer></footer>
     <script>
-        var error = document.getElementById("quantityError").value;
-        alert(error);
         $(document).ready(function () {
             $("#detailError").modal("show");
             $("#success").modal("show");
