@@ -5,15 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.naming.NamingException;
 import quanghung.utils.DBUtils;
 
 public class DescriptionDAO {
 
-    private static final String GET_LIST_DESCRIPTION = "SELECT descriptionID, descriptionName FROM description";
+//    private static final String GET_LIST_DESCRIPTION = "SELECT descriptionID, descriptionName FROM description";
+    private static final String GET_LIST_DESCRIPTION_DISTINCT = "SELECT distinct descriptionName FROM description";
+    private static final String GET_LIST_DESCRIPTION = "SELECT distinct descriptionID, descriptionName, cateID, status FROM description";
     private static final String GET_LIST_DESCRIPTION_BASED_ON_CATEID = "SELECT descriptionID, descriptionName, cateID, status FROM description WHERE cateID=?";
     private static final String DELETE_DESCRIPTION = "UPDATE description SET status=? WHERE descriptionID=?";
     private static final String UPDATE_DESCRIPTION = "UPDATE description SET descriptionName=? WHERE descriptionID=?";
@@ -157,24 +157,22 @@ public class DescriptionDAO {
         return list;
     }
 
-    public Map<Integer, String> getListDescription() throws SQLException {
-        Map<Integer, String> description = new HashMap<>();
+    public List<String> getListDescription() throws SQLException {
+        List<String> list = new ArrayList<String>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION);
+                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION_DISTINCT);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    int descriptionID = rs.getInt("descriptionID");
                     String descriptionName = rs.getString("descriptionName");
-                    description.put(descriptionID, descriptionName);
+                    list.add(descriptionName);
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -186,6 +184,38 @@ public class DescriptionDAO {
                 conn.close();
             }
         }
-        return description;
+        return list;
     }
+
+//    public Map<Integer, String> getListDescription() throws SQLException {
+//        Map<Integer, String> description = new HashMap<>();
+//        Connection conn = null;
+//        PreparedStatement ptm = null;
+//        ResultSet rs = null;
+//        try {
+//            conn = DBUtils.getConnection();
+//            if (conn != null) {
+//                ptm = conn.prepareStatement(GET_LIST_DESCRIPTION);
+//                rs = ptm.executeQuery();
+//                while (rs.next()) {
+//                    int descriptionID = rs.getInt("descriptionID");
+//                    String descriptionName = rs.getString("descriptionName");
+//                    description.put(descriptionID, descriptionName);
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (rs != null) {
+//                rs.close();
+//            }
+//            if (ptm != null) {
+//                ptm.close();
+//            }
+//            if (conn != null) {
+//                conn.close();
+//            }
+//        }
+//        return description;
+//    }
 }

@@ -43,7 +43,7 @@
             <!-- logo -->
             <div class="col-sm-4 navbar-user-left d-flex align-items-center">
                 <div class="col-sm-5 logo">
-                    <a href="MainController?search=&action=HomeSearchDevice&value=${category.value}""><img src="./img/logo.png" height="80" alt="" /></a>
+                    <a href="MainController?filter=&action=HomeSearchDevice&value=${category.value}""><img src="./img/logo.png" height="80" alt="" /></a>
                 </div>
                 <!-- product-list -->
                 <div class="">
@@ -55,11 +55,11 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <c:forEach var="category" items="${categoryList}">
                                 <li>
-                                    <a class="dropdown-item" value="${category.key}" href="MainController?search=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
+                                    <a class="dropdown-item" value="${category.key}" href="MainController?filter=${category.key}&action=HomeSearchDevice&value=${category.value}">${category.value}</a>
                                 </li>
                             </c:forEach>
                             <li>
-                                <a class="dropdown-item" href="MainController?search=&action=HomeSearchDevice&value=${category.value}">All Product</a>
+                                <a class="dropdown-item" href="MainController?filter=&action=HomeSearchDevice&value=${category.value}">All Product</a>
                             </li>
                         </ul>
                     </div>

@@ -185,28 +185,27 @@
             </div>
         </div>
         <div class="table-wapper col-sm-12">
-            <c:if test="${not empty deviceList}">          
-                <table class="table text-center">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>DeviceID</th>
-                            <th>Images</th>
-                            <th id="device-nametable">Device Name</th>
-                            <th>Brand</th>
-                            <th>Quantity</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Warehouse</th>
-                            <th>Deposit (VND)</th>
-                            <th>Delete</th>
-                            <th>Update</th>
-                        </tr>
-                    </thead>   
-                    ${sessionScope.ERROR}
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>DeviceID</th>
+                        <th>Images</th>
+                        <th id="device-nametable">Device Name</th>
+                        <th>Brand</th>
+                        <th>Quantity</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Warehouse</th>
+                        <th>Deposit (VND)</th>
+                        <th>Delete</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>   
+                ${sessionScope.ERROR}
+                <c:if test="${not empty deviceList}">          
                     <tbody>
                         <c:set var="dl" value="${sessionScope.LIST_DETAIL}"/>
-
                         <c:forEach var="device" items="${deviceList}" varStatus="counter1">
                             <tr>
                         <form action="MainController"  method="POST">
@@ -307,8 +306,8 @@
                         <c:set var="modal" value="detailModal"/>
                     </c:forEach>
                     </tbody>
-                </table>
-            </c:if>
+                </c:if>
+            </table>
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>

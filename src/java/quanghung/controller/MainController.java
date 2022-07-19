@@ -84,6 +84,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_IMG_CONTROLLER = "UpdateImgController";
     private static final String OPEN_UPDATE_IMG_PAGE = "OpenUpdateImgPage";
     private static final String OPEN_UPDATE_IMG_PAGE_CONTROLLER = "OpenUpdateImgPageController";
+    private static final String FILTER_DEVICE = "FilterDevice";
+    private static final String FILTER_DEVICE_CONTROLLER = "FilterDeviceController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -168,6 +170,8 @@ public class MainController extends HttpServlet {
                 url = UPDATE_IMG_CONTROLLER;
             } else if (OPEN_UPDATE_IMG_PAGE.equals(action)) {
                 url = OPEN_UPDATE_IMG_PAGE_CONTROLLER;
+            } else if (FILTER_DEVICE.equals(action)) {
+                url = FILTER_DEVICE_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

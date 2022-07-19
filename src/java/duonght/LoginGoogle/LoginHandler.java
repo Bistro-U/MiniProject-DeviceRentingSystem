@@ -70,7 +70,7 @@ public class LoginHandler extends HttpServlet {
                     HttpSession session = request.getSession();
                     session.setAttribute("HomepageUser", googlePojo);
                     session.setAttribute("HomepageUserBD", acc);
-                    request.getRequestDispatcher("MainController?search=&action=HomeSearchDevice").forward(request, response);
+                    request.getRequestDispatcher("MainController?filter=&action=HomeSearchDevice").forward(request, response);
                 }   
             }
         }
