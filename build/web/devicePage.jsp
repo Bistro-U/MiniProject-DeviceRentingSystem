@@ -31,7 +31,6 @@
     <body>
         <c:set var="search" value="${requestScope.FILTER}"/>
         <c:set var="deviceList" value="${sessionScope.LIST_DEVICE}"/>
-        <c:set var="deviceListFilter" value="${requestScope.LIST_DEVICE_FILTER}"/>
         <c:set var="brandList" value="${sessionScope.LIST_BRAND}"/>
         <c:set var="categoryList" value="${sessionScope.LIST_CATEGORY}"/>
         <c:set var="warehouseList" value="${sessionScope.LIST_WAREHOUSE}"/>
@@ -105,7 +104,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Choose Filter</h4>
-                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                <button type="button" class="close" data-dismiss="modal">?</button>
                             </div>
                             <div class="modal-body">
                                 <form action="MainController" method="POST">
@@ -252,60 +251,36 @@
                     <th class="text-center">Detail</th>
                     <th class="text-center">Action</th>
                     </thead>
-                    <c:choose>
-                        <c:when test="${not empty deviceListFilter}">
-                            <tbody>
-                                <c:forEach var="device" items="${deviceListFilter}" varStatus="counter">
-                                    <tr>
-                                        <td class="text-center">${counter.count}</td>
-                                        <td class="text-center">${device.deviceID}</td>
-                                        <td class="text-center"><img class="img-product" src="${device.url}" alt="no import image"/></td>
-                                        <td class="text-center">${device.deviceName}</td>
-                                        <td class="text-center">${device.warehouseName}</td>
-                                        <td class="text-center">${device.brandName}</td>
-                                        <td class="text-center">${device.quantity}</td>
-                                        <td class="text-center">${device.deposit}</td>
-                                        <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
-                                        <td class="text-center"><button type="submit">Add to cart</button></td>
-                                    </tr>
-                                </c:forEach>    
-                            </tbody>
-                            <c:if test="${empty deviceListFilter}">
-                                <h2>No result</h2>
-                            </c:if>
-                        </c:when>
-                        <c:otherwise>
-                            <tbody>
-                                <c:forEach var="device" items="${deviceList}" varStatus="counter">
-                                    <tr>
-                                        <td class="text-center">${counter.count}</td>
-                                        <td class="text-center">${device.deviceID}</td>
-                                        <td class="text-center"><img class="img-product" src="${device.url}" alt="no import image"/></td>
-                                        <td class="text-center">${device.deviceName}</td>
-                                        <td class="text-center">${device.warehouseName}</td>
-                                        <td class="text-center">${device.brandName}</td>
-                                        <td class="text-center">${device.quantity}</td>
-                                        <td class="text-center">${device.deposit}</td>
-                                        <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
-                                        <td class="text-center"><button type="submit">Add to cart</button></td>
-                                    </tr>
-                                </c:forEach>    
-                            </tbody>
-                            <c:if test="${empty deviceList}">
-                                <h2>No result</h2>
-                            </c:if>
-                        </c:otherwise>
-                    </c:choose>
-
+                    <c:if test="${empty requestScope.ERROR}">
+                        <tbody>
+                            <c:forEach var="device" items="${deviceList}" varStatus="counter">
+                                <tr>
+                                    <td class="text-center">${counter.count}</td>
+                                    <td class="text-center">${device.deviceID}</td>
+                                    <td class="text-center"><img class="img-product" src="${device.url}" alt="no import image"/></td>
+                                    <td class="text-center">${device.deviceName}</td>
+                                    <td class="text-center">${device.warehouseName}</td>
+                                    <td class="text-center">${device.brandName}</td>
+                                    <td class="text-center">${device.quantity}</td>
+                                    <td class="text-center">${device.deposit}</td>
+                                    <td class="text-center"><a href="MainController?action=Detail&deviceID=${device.deviceID}&deviceName=${device.deviceName}&cateID=${device.cateID}&cateName=${device.cateName}&url=${device.url}&warehouseID=${device.warehouseID}&warehouseName=${device.warehouseName}&brandID=${device.brandID}&brandName=${device.brandName}&quantity=${device.quantity}&deposit=${device.deposit}" id="fa-info-circle"><i class="fas fa-info-circle"></i></a></td>
+                                    <td class="text-center"><button type="submit">Add to cart</button></td>
+                                </tr>
+                            </c:forEach>    
+                        </tbody>
+                    </c:if>
                 </table>
+                <c:if test="${not empty requestScope.ERROR}">
+                    <h2 class="text-center">${requestScope.ERROR}</h2>
+                </c:if>
             </div>
 
         </div>
     </div>
-    <footer class="footer-distributed">
+    <footer class="footer-distributed fixed-bottom">
         <div class="footer-left">
             <h3>Company<span>DRS</span></h3>
-            <p class="footer-company-name">Company DRS © 2022</p>
+            <p class="footer-company-name">Company DRS ? 2022</p>
         </div>
         <div class="footer-center">
             <div>
@@ -340,97 +315,6 @@
                 $("#FilterModal").modal("show");
             });
         });
-        function Show() {
-            if (document.getElementById('chose-brand-1').style.display === "block") {
-                document.getElementById('chose-brand-1').style.display = "none";
-            } else {
-                document.getElementById('chose-brand-1').style.display = "block"
-            }
-        }
-        function Show1() {
-            if (document.getElementById('chose-brand-2').style.display === "block") {
-                document.getElementById('chose-brand-2').style.display = "none";
-            } else {
-                document.getElementById('chose-brand-2').style.display = "block"
-            }
-        }
-        function Show2() {
-            if (document.getElementById('chose-brand-3').style.display === "block") {
-                document.getElementById('chose-brand-3').style.display = "none";
-            } else {
-                document.getElementById('chose-brand-3').style.display = "block"
-            }
-        }
-        function Show3() {
-            if (document.getElementById('chose-brand-4').style.display === "block") {
-                document.getElementById('chose-brand-4').style.display = "none";
-            } else {
-                document.getElementById('chose-brand-4').style.display = "block"
-            }
-        }
-        function Showram() {
-            if (document.getElementById('chose-ram-1').style.display === "block") {
-                document.getElementById('chose-ram-1').style.display = "none";
-            } else {
-                document.getElementById('chose-ram-1').style.display = "block"
-            }
-        }
-        function Showram1() {
-            if (document.getElementById('chose-ram-2').style.display === "block") {
-                document.getElementById('chose-ram-2').style.display = "none";
-            } else {
-                document.getElementById('chose-ram-2').style.display = "block"
-            }
-        }
-        function Showram2() {
-            if (document.getElementById('chose-ram-3').style.display === "block") {
-                document.getElementById('chose-ram-3').style.display = "none";
-            } else {
-                document.getElementById('chose-ram-3').style.display = "block"
-            }
-        }
-        function Showram3() {
-            if (document.getElementById('chose-ram-4').style.display === "block") {
-                document.getElementById('chose-ram-4').style.display = "none";
-            } else {
-                document.getElementById('chose-ram-4').style.display = "block"
-            }
-        }
-        function Showchip() {
-            if (document.getElementById('chose-chip-1').style.display === "block") {
-                document.getElementById('chose-chip-1').style.display = "none";
-            } else {
-                document.getElementById('chose-chip-1').style.display = "block"
-            }
-        }
-        function Showchip1() {
-            if (document.getElementById('chose-chip-2').style.display === "block") {
-                document.getElementById('chose-chip-2').style.display = "none";
-            } else {
-                document.getElementById('chose-chip-2').style.display = "block"
-            }
-        }
-        function Showchip2() {
-            if (document.getElementById('chose-chip-3').style.display === "block") {
-                document.getElementById('chose-chip-3').style.display = "none";
-            } else {
-                document.getElementById('chose-chip-3').style.display = "block"
-            }
-        }
-        function Showchip3() {
-            if (document.getElementById('chose-chip-4').style.display === "block") {
-                document.getElementById('chose-chip-4').style.display = "none";
-            } else {
-                document.getElementById('chose-chip-4').style.display = "block"
-            }
-        }
-        function Showchip4() {
-            if (document.getElementById('chose-chip-5').style.display === "block") {
-                document.getElementById('chose-chip-5').style.display = "none";
-            } else {
-                document.getElementById('chose-chip-5').style.display = "block"
-            }
-        }
     </script>
 </body>
 </html>

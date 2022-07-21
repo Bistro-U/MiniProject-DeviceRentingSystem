@@ -19,17 +19,15 @@ import javax.servlet.http.HttpSession;
 import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
-import quanghung.description.DescriptionDTO;
 import quanghung.descriptionDetail.DescriptionDetailDAO;
-import quanghung.descriptionDetail.DescriptionDetailDTO;
 import quanghung.device.DeviceDAO;
 import quanghung.device.DeviceDTO;
 import quanghung.warehouse.WarehouseDAO;
 
 public class FilterDeviceController extends HttpServlet {
 
-    private static final String ERROR = "devicePage.jsp";
-    private static final String SUCCESS = "devicePage.jsp";
+    private static final String ERROR = "devicePage2.jsp";
+    private static final String SUCCESS = "devicePage2.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,6 +50,7 @@ public class FilterDeviceController extends HttpServlet {
             String filterWarehouse = request.getParameter("filterWarehouse");
             String filterCategory = request.getParameter("filterCategory");
             Map<String, String> filterDetail = new HashMap<>();
+            boolean check = true;
             for (int i = 1; i <= descriptionList.size(); i++) {
                 String des = "desName" + String.valueOf(i);
                 String detail = "detailName" + String.valueOf(i);
@@ -70,7 +69,12 @@ public class FilterDeviceController extends HttpServlet {
                             a.add(deviceList.get(i));
                         }
                     }
-                    deviceList = a;
+                    if (a.size() != 0) {
+                        deviceList = a;
+                        check = true;
+                    } else {
+                        check = false;
+                    }
                 }
             }
             if (filterBrand != "") {
@@ -80,7 +84,12 @@ public class FilterDeviceController extends HttpServlet {
                         a.add(deviceList.get(i));
                     }
                 }
-                deviceList = a;
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
             }
             if (filterWarehouse != "") {
                 List<DeviceDTO> a = new ArrayList<>();
@@ -89,7 +98,12 @@ public class FilterDeviceController extends HttpServlet {
                         a.add(deviceList.get(i));
                     }
                 }
-                deviceList = a;
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
             }
             if (filterCategory != "") {
                 List<DeviceDTO> a = new ArrayList<>();
@@ -98,7 +112,15 @@ public class FilterDeviceController extends HttpServlet {
                         a.add(deviceList.get(i));
                     }
                 }
-                deviceList = a;
+                if (a.size() != 0) {
+                    deviceList = a;
+                    check = true;
+                } else {
+                    check = false;
+                }
+            }
+            if (check == false) {
+                deviceList.clear();
             }
             if (deviceList.size() != 0) {
                 for (int i = 0; i < descriptionList.size(); i++) {
