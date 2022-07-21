@@ -162,7 +162,7 @@
                                             <a value="${warehouse.key}" href="MainController?filter=${warehouse.key}&action=SearchDevice&value=${warehouse.value}" >${warehouse.value}</a>
                                         </li>
                                     </c:forEach>
-                                </ul>
+                                </ul>   
                             </li>
                             <li>
                                 <a class="dropdown-item" href="MainController?search=&action=SearchDevice">All</a>
@@ -276,14 +276,21 @@
                                 </div>
                             </td>
                             <td>
-                                <input name="cateName" type="text" id="fix_column"class="text-center inputmanager" readonly
+                                <input type="button" type="text" id="fix_column"class="text-center inputmanager categoryButton" onclick="location.href = 'MainController?action=UpdateDeviceCategory&cateID=${device.cateID}&deviceID=${device.deviceID}'"
                                        <c:forEach var="category" items="${categoryList}">
                                            <c:if test="${category.key.equals(device.cateID)}">                                 
-                                               value="${category.value}"
+                                               value="${category.value}" 
                                            </c:if>
                                        </c:forEach>
                                        />
                             </td>
+                            <input name="cateName" type="hidden" 
+                                   <c:forEach var="category" items="${categoryList}">
+                                       <c:if test="${category.key.equals(device.cateID)}">                                 
+                                           value="${category.value}"
+                                       </c:if>
+                                   </c:forEach>
+                                   />
                             <td>
                                 <select name="warehouseID" id="fix_column" class="text-center inputmanager">
                                     <c:forEach var="warehouse" items="${warehouseList}">

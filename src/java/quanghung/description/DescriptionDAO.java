@@ -19,6 +19,7 @@ public class DescriptionDAO {
     private static final String UPDATE_DESCRIPTION = "UPDATE description SET descriptionName=? WHERE descriptionID=?";
     private static final String CREATE_DESCRIPTION = "INSERT INTO description(descriptionName,cateID,status) VALUES (?,?,?)";
     private static final String GET_DESCRIPTION_NAME = "SELECT descriptionName FROM description WHERE descriptionID=?";
+    private static final String GET_LIST_DESCRIPTION_DETAIL_BY_ID = "SELECT detailID, descriptionID, detailName, status FROM descriptionDetail WHERE descriptionID=?";
 
     public String getDescriptionName(int descriptionID) throws SQLException {
         String descriptionName = null;
@@ -126,7 +127,9 @@ public class DescriptionDAO {
         List<DescriptionDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
+        PreparedStatement ptm2 = null;
         ResultSet rs = null;
+        ResultSet rs2 = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
@@ -138,7 +141,13 @@ public class DescriptionDAO {
                     if (status) {
                         int descriptionID = rs.getInt("descriptionID");
                         String descriptionName = rs.getString("descriptionName");
-                        list.add(new DescriptionDTO(descriptionID, descriptionName, cateID, status));
+                        ptm2 = conn.prepareStatement(GET_LIST_DESCRIPTION_DETAIL_BY_ID);
+                        ptm2.setInt(1, descriptionID);
+                        rs2 = ptm2.executeQuery();
+                        while (rs2.next()) {
+                            list.add(new DescriptionDTO(descriptionID, descriptionName, cateID, status));
+                            break;
+                        }
                     }
                 }
             }

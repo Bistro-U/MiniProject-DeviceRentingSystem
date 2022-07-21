@@ -86,6 +86,12 @@ public class MainController extends HttpServlet {
     private static final String OPEN_UPDATE_IMG_PAGE_CONTROLLER = "OpenUpdateImgPageController";
     private static final String FILTER_DEVICE = "FilterDevice";
     private static final String FILTER_DEVICE_CONTROLLER = "FilterDeviceController";
+    private static final String UPDATE_DEVICE_CATEGORY = "UpdateDeviceCategory";
+    private static final String UPDATE_DEVICE_CATEGORY_CONTROLLER = "UpdateDeviceCategoryController";
+    private static final String UPDATE_CATEGORY_DEVICE_INFO = "UpdateCategoryDeviceInfo";
+    private static final String UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER = "InputCategoryDeviceInfoController";
+    private static final String UPDATE_DEVICE_DETAIL_CATEGORY = "UpdateDeviceDetailCategory";
+    private static final String UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER = "UpdateDeviceDetailCategoryController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -172,6 +178,12 @@ public class MainController extends HttpServlet {
                 url = OPEN_UPDATE_IMG_PAGE_CONTROLLER;
             } else if (FILTER_DEVICE.equals(action)) {
                 url = FILTER_DEVICE_CONTROLLER;
+            } else if (UPDATE_DEVICE_CATEGORY.equals(action)) {
+                url = UPDATE_DEVICE_CATEGORY_CONTROLLER;
+            } else if (UPDATE_CATEGORY_DEVICE_INFO.equals(action)) {
+                url = UPDATE_CATEGORY_DEVICE_INFO_CONTROLLER;
+            } else if (UPDATE_DEVICE_DETAIL_CATEGORY.equals(action)) {
+                url = UPDATE_DEVICE_DETAIL_CATEGORY_CONTROLLER;
             }
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

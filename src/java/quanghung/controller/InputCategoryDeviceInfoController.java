@@ -1,66 +1,58 @@
 package quanghung.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
+import quanghung.brand.BrandDAO;
 import quanghung.category.CategoryDAO;
 import quanghung.description.DescriptionDAO;
 import quanghung.description.DescriptionDTO;
+import quanghung.descriptionDetail.DescriptionDetailDAO;
+import quanghung.descriptionDetail.DescriptionDetailDTO;
 import quanghung.device.DeviceDAO;
-import quanghung.device.DeviceDTO;
-import quanghung.device_description.Device_DescriptionDAO;
+import quanghung.device.DeviceError;
+import quanghung.warehouse.WarehouseDAO;
 
-public class UpdateDeviceController extends HttpServlet {
+public class InputCategoryDeviceInfoController extends HttpServlet {
 
-    private static final String ERROR = "MainController?search=&action=SearchDevice";
-    private static final String SUCCESS = "MainController?search=&action=SearchDevice";
+    private static final String ERROR = "updateCategory.jsp";
+    private static final String SUCCESS = "updateCategoryDeviceInfo.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
             CategoryDAO categoryDao = new CategoryDAO();
-            int deviceID = Integer.parseInt(request.getParameter("deviceID"));
-            String deviceName = request.getParameter("deviceName");
-            int warehouseID = Integer.parseInt(request.getParameter("warehouseID"));
-            int brandID = Integer.parseInt(request.getParameter("brandID"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            int deposit = Integer.parseInt(request.getParameter("deposit"));
-            String cateName = request.getParameter("cateName");
-            String cateID = categoryDao.getCateID(cateName);
-            DeviceDAO deviceDao = new DeviceDAO();
             DescriptionDAO descriptionDao = new DescriptionDAO();
-            Device_DescriptionDAO device_descriptionDao = new Device_DescriptionDAO();
+            DescriptionDetailDAO descriptionDetailDao = new DescriptionDetailDAO();
+            int deviceID = Integer.parseInt(request.getParameter("deviceID"));
+            String cateID = request.getParameter("cateID");
+            String cateName = categoryDao.getCateName(cateID);
+            session.setAttribute("DEVICE_ID", deviceID);
             List<DescriptionDTO> listDescription = descriptionDao.getListDescription(cateID);
-            for (int i = 1; i <= listDescription.size(); i++) {
-                String d = "detailID" + String.valueOf(i);
-                String dd = request.getParameter(d);
-                int detailID = Integer.parseInt(dd);
-                int currentDetailID = Integer.parseInt(request.getParameter("currentDetailID" + String.valueOf(i)));
-                boolean createDevice_Description = device_descriptionDao.updateDevice_Description(currentDetailID, deviceID, detailID);
+            for (DescriptionDTO l : listDescription) {
+                List<DescriptionDetailDTO> listDescriptionDetail = descriptionDetailDao.getListDescriptionDetail(l.getDescriptionID());
+                session.setAttribute(l.getDescriptionName(), listDescriptionDetail);
             }
-            boolean check = deviceDao.updateDevice(deviceID, deviceName, warehouseID, brandID, quantity, cateID, deposit);
-            if (check) {
-                url = SUCCESS;
-            }
+            session.setAttribute("CATE_NAME", cateName);
+            session.setAttribute("DESCRIPTION_LIST", listDescription);
+            url = SUCCESS;
 
         } catch (Exception e) {
-            log("Error at UpdateProductController: " + e.toString());
+            log("Error at InputCategoryDeviceInfoController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

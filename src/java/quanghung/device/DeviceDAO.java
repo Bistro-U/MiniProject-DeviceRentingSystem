@@ -23,9 +23,10 @@ public class DeviceDAO {
     private static final String GET_LIST_DEVICE = "SELECT deviceID, deviceName, url, deposit, d.warehouseID, d.brandID, quantity, d.cateID, w.warehouseName, c.cateName, b.brandName, d.status FROM device d, warehouse w, category c, Brand b  WHERE d.brandID = b.brandID AND d.warehouseID = w.warehouseID AND d.cateID = c.cateID";
     private static final String DELETE_DEVICE = "UPDATE device SET status=? WHERE deviceID=?";
     private static final String UPDATE_DEVICE = "UPDATE device SET deviceName=?, warehouseID=?, brandID=?, quantity=?, cateID=?, deposit=? WHERE deviceID=?";
+    private static final String UPDATE_DEVICE_CATEGORY = "UPDATE device SET cateID=? WHERE deviceID=?";
     private static final String UPDATE_IMAGE = "UPDATE device SET url=? WHERE deviceID=?";
     private static final String CREATE_DEVICE = "INSERT INTO device(deviceName,warehouseID,brandID,quantity,cateID,url,deposit,status) VALUES (?,?,?,?,?,?,?,?)";
-    private static final String CHECK_DUPLICATE = "SELECT deviceID FROM device WHERE deviceName=? AND warehouseID=?";
+    private static final String CHECK_DUPLICATE = "SELECT deviceID, status FROM device WHERE deviceName=? AND warehouseID=?";
     private static final String GET_DEVICE_ID = "SELECT deviceID FROM device WHERE deviceName=?";
     private static final String GET_EXACTLY_DETAIL_NAME = "SELECT d.deviceID, de.descriptionName, detail.detailName\n"
             + "FROM device d, description de, descriptionDetail detail, device_description dd\n"
@@ -74,7 +75,10 @@ public class DeviceDAO {
                 ptm.setInt(2, warehouseID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    check = true;
+                    boolean status = rs.getBoolean("status");
+                    if (status) {
+                        check = true;
+                    }
                 }
             }
         } catch (Exception e) {
@@ -159,6 +163,31 @@ public class DeviceDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_IMAGE);
                 ptm.setString(1, url);
+                ptm.setInt(2, deviceID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.toString();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean updateCategory(int deviceID, String cateID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_DEVICE_CATEGORY);
+                ptm.setString(1, cateID);
                 ptm.setInt(2, deviceID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
