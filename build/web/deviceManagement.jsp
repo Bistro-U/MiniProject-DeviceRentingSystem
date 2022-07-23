@@ -238,7 +238,7 @@
                                 <div id="${modal}" class="modal fade" role="dialog">
                                     <div class="modal-dialog modal-lg" role="content">
                                         <!-- Modal content-->
-                                        <div class="modal-content">
+                                        <div class="modal-content"> 
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Details modal</h4>
                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -305,10 +305,11 @@
                                     </c:forEach>
                                 </select>
                             </td>
+                            <input type="hidden" name="currentQuantity" value="${device.quantity}"/>
                             <td ><input type="number" name="deposit" step="1000" min="1000" class="text-center inputmanager medium" value="${device.deposit}" ></td>
-                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}'"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
+                            <td><button type="button"  onclick="location.href = 'MainController?action=DeleteDevice&deviceID=${device.deviceID}&quantity=${device.quantity}&warehouseID=${device.warehouseID}'"  class="btn btn-danger center2"><i class="fas fa-trash-alt"></i></button></td>
                             <td><button type="submit" name="action" value="UpdateDevice"  class="btn btn-success center2"><i class="fas fa-recycle"></i></button></td>
-                        </form>
+                        </form>s
                         </tr>
                         <c:set var="modal" value="detailModal"/>
                     </c:forEach>
@@ -318,6 +319,14 @@
             <c:if test="${empty deviceList}">
                 <h2>No result</h2>
             </c:if>
+            <c:set var="quantityError" value="${requestScope.ERROR}"/>
+            <c:if test="${quantityError != null}">
+                <input type="hidden" value="${quantityError}" id="error"/>
+            </c:if>
+            <c:set var="success" value="${requestScope.SUCCESS}"/>
+            <c:if test="${success != null}">
+                <input type="hidden" value="${success}" id="successAlert"/>
+            </c:if>
         </div>
     </body>
     <footer></footer>
@@ -326,7 +335,7 @@
             $("#detailError").modal("show");
             $("#success").modal("show");
         });
-
+       
         function chooseFile(fileInput, c) {
             if (fileInput.files && fileInput.files[0]) {
                 var reader = new FileReader();

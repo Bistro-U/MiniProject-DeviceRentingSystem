@@ -224,6 +224,14 @@
                         </a>
                     </div>
                 </form>
+                <c:if test="${requestScope.ERROR != null}">
+                    <div class="alert alert-warning" role="alert">
+                        <strong>ERROR!</strong> ${requestScope.ERROR}
+                        <button type="button" class="close" data-dismiss="alert"> 
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </c:if>
             </div>
         </div>
     </div>

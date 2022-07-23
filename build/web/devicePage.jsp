@@ -46,7 +46,7 @@
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center justify-content-center user-info" href="#"
                            id="navbarDropdownMenuLink" role="button" data-toggle="dropdown">
-                            <p class="product-list">Product</p>
+                            <p class="product-list">Device</p>
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <c:forEach var="category" items="${categoryList}">
@@ -104,7 +104,7 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title">Choose Filter</h4>
-                                <button type="button" class="close" data-dismiss="modal">?</button>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <form action="MainController" method="POST">
@@ -156,7 +156,7 @@
 
                                     <div class="col-12 d-flex">
                                         <div class="col-6 mt-3">
-                                            <button class="btn-filter btn btn-danger">Cancel</button>
+                                            <button class="btn-filter btn btn-danger" data-dismiss="modal">Cancel</button>
                                         </div>
                                         <div class="col-6 mt-3">
                                             <button class="btn-filter btn btn-color" type="submit" value="FilterDevice" name="action">Search</button>
